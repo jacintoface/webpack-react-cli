@@ -45,5 +45,4 @@ let config = webpackMerge(baseWebpackConfig, {
 		}
 	}
 })
-console.log(config)
 module.exports = config
