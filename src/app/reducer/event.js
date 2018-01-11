@@ -13,7 +13,8 @@ export default handleActions({
   },
   REMOVE (state, actions) {
     let oldCount = state.count
-    let newCount = actions.payload - oldCount
+	  console.log(state)
+    let newCount = oldCount - actions.payload
     return Object.assign({}, state, {
       count: newCount
     })
