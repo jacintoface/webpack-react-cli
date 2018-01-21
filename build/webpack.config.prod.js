@@ -50,6 +50,4 @@ let config = merge(baseConfig, {
       })
   ]
 })
-
-console.log(JSON.stringify(config))
 module.exports = config
