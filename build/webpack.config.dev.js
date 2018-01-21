@@ -26,6 +26,46 @@ let config = webpackMerge(baseWebpackConfig, {
     contentBase: path.join(__dirname,'../dist'),
     historyApiFallback: true,
   },
+  module: {
+    rules:[{
+      test: /\.(css|scss)$/,
+      use: [{
+        loader: 'style-loader',
+        options: {
+          sourceMap: true
+        }
+      }, {
+        loader: 'css-loader',
+        options: {
+          sourceMap: true,
+          modules: true
+        }
+      }, {
+        loader: 'postcss-loader',
+        options: {
+          ident: 'postcss',
+          sourceMap: true,
+          plugins: () => [
+            require('postcss-flexbugs-fixes'),
+            autoprefixer({
+              browsers: [
+                '>1%',
+                'last 4 versions',
+                'Firefox ESR',
+                'not ie < 9', // React doesn't support IE8 anyway
+              ],
+              flexbox: 'no-2009',
+            })
+          ]
+        }
+      }, {
+        loader: 'sass-loader',
+        options: {
+          sourceMap: true
+        }
+      }]
+    }]
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: resolve('template.html')
