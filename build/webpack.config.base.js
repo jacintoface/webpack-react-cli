@@ -45,12 +45,6 @@ const config = {
       }
     }]
   },
-  resolve: {
-    extensions: ['.js','.jsx','.css','.scss'],
-    alias: {
-      '@component': resolve('app','components')
-    }
-  }
 }
 
 module.exports = config

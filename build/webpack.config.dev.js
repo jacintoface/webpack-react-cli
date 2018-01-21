@@ -76,7 +76,13 @@ let config = webpackMerge(baseWebpackConfig, {
       minChunks:Infinity,
       filename: 'common.js'
     }),
-  ]
+  ],
+	resolve: {
+		extensions: ['.js', '.jsx', '.css', '.scss'],
+		alias: {
+			'@component': resolve('app', 'components'),
+			'@action': resolve("app", 'actions')
+		}
+	}
 })
-console.log(config)
 module.exports = config
