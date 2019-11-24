@@ -1,18 +1,16 @@
 const path = require('path')
 const filePath = require('./webpack.config.file')
-const package = require('../package.json')
-const autoprefixer = require('autoprefixer')
 const resolve = require('./utils').resolve
 const config = {
   entry: {
-    app: resolve('index.js'),
-    vendor: Object.keys(package.dependencies)
+    app: resolve('index.js')
   },
   output: {
     filename: '[name].[hash:6].js',
     path: filePath.output,
     publicPath: filePath.publicPath
   },
+  devtool: "inline-cheap-module-source-map",
   module: {
     rules: [{
       test: /\.(js|jsx)$/,

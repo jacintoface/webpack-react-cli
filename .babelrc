@@ -1,4 +1,7 @@
 {
-  "presets": ["env", "react","stage-0"],
+  "presets": [
+    "@babel/preset-react",
+    "@babel/preset-env"
+  ],
   "plugins": ["react-hot-loader/babel"]
 }
