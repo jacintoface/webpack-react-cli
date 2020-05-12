@@ -1,23 +1,22 @@
 import { handleActions } from 'redux-actions'
-let state = {
+
+const state = {
   count: 0
 }
 
 export default handleActions({
   ADD (state, actions) {
-    let oldCount = state.count
-    let newCount = actions.payload + oldCount
+    const oldCount = state.count
+    const newCount = actions.payload + oldCount
     return Object.assign({}, state, {
       count: newCount
     })
   },
   REMOVE (state, actions) {
-    let oldCount = state.count
-	  console.log(state)
-    let newCount = oldCount - actions.payload
+    const oldCount = state.count
+    const newCount = oldCount - actions.payload
     return Object.assign({}, state, {
       count: newCount
     })
   }
 }, state)
-

@@ -1,7 +1,7 @@
-import {createAction} from 'redux-actions'
+import { createAction } from 'redux-actions'
 
 export const ADD = createAction('ADD')
-export function add(count) {
+export function add (count) {
   return (dispatch, getState) => {
     dispatch(ADD(count))
   }

@@ -2,11 +2,16 @@ import { createStore, applyMiddleware } from 'redux'
 import { createLogger } from 'redux-logger'
 import thunk from 'redux-thunk'
 import reducer from '../reducer/index'
-const enhancer = applyMiddleware(thunk, createLogger())
 
-const configStore = () => {
-  let store = createStore(reducer, enhancer)
+const getServerStore = () => {
+  const store = createStore(reducer, applyMiddleware(thunk, createLogger()))
   return store
 }
 
-export default configStore
+const getClientStore = () => {
+  const initState = (window && window.__INIT_STATE__) || {}
+  const store = createStore(reducer, initState, applyMiddleware(thunk))
+  return store
+}
+
+export { getServerStore, getClientStore }

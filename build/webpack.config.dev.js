@@ -1,15 +1,18 @@
 const path = require('path')
+const opn = require('opn')
+const webpack = require('webpack')
+const yargs = require('yargs')
 const webpackMerge = require('webpack-merge')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const opn = require('opn')
+const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const resolve = require('./utils').resolve
-const webpack = require('webpack')
 const baseWebpackConfig = require('./webpack.config.base')
+const filePath = require('./webpack.config.file')
 
+const { performance } = yargs.argv
 let config = webpackMerge(baseWebpackConfig, {
-  entry: {
-    patch: 'react-hot-loader/patch',
-  },
+  mode: 'development',
   devServer: {
     port: 8081,
     host: '0.0.0.0',
@@ -23,66 +26,57 @@ let config = webpackMerge(baseWebpackConfig, {
     after () {
       opn('http://localhost:8081')
     },
-    contentBase: path.join(__dirname,'../dist'),
+    open: false,
+    contentBase: filePath.output,
     historyApiFallback: true,
+    publicPath: filePath.publicPath
   },
   module: {
-    rules:[{
+    rules: [{
+      test: /\.(js|jsx)$/,
+      use: ['babel-loader'],
+      exclude: /node_modules/,
+      include: path.join(__dirname, '../src')
+    }, {
       test: /\.(css|scss)$/,
       use: [{
-        loader: 'style-loader',
+        loader: MiniCssExtractPlugin.loader,
         options: {
-          sourceMap: true
+          hmr: process.env.NODE_ENV === 'development',
+          reloadAll: true,
+          ignoreOrder: true
         }
       }, {
         loader: 'css-loader',
         options: {
-          sourceMap: true,
-          modules: true
+          modules: true,
+          importLoaders: 1
         }
       }, {
-        loader: 'postcss-loader',
-        options: {
-          ident: 'postcss',
-          sourceMap: true,
-          plugins: () => [
-            require('postcss-flexbugs-fixes'),
-            autoprefixer({
-              browsers: [
-                '>1%',
-                'last 4 versions',
-                'Firefox ESR',
-                'not ie < 9', // React doesn't support IE8 anyway
-              ],
-              flexbox: 'no-2009',
-            })
-          ]
-        }
-      }, {
-        loader: 'sass-loader',
-        options: {
-          sourceMap: true
-        }
+        loader: 'sass-loader'
       }]
     }]
   },
+  devtool: 'inline-cheap-module-source-map',
   plugins: [
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[id].css'
+    }),
     new HtmlWebpackPlugin({
-      template: resolve('template.html')
+      template: path.join(__dirname, '../public/template.html')
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.optimize.CommonsChunkPlugin({
-      names: ['manifest','vendor'],
-      minChunks:Infinity,
-      filename: 'common.js'
-    }),
   ],
-	resolve: {
-		extensions: ['.js', '.jsx', '.css', '.scss'],
-		alias: {
-			'@component': resolve('app', 'components'),
-			'@action': resolve("app", 'actions')
-		}
-	}
+  resolve: {
+    extensions: ['.js', '.jsx', '.css', '.scss'],
+    alias: {
+      '@component': resolve('app', 'components'),
+      '@action': resolve('app', 'actions')
+    }
+  }
 })
+if (performance) {
+  config = (new SpeedMeasurePlugin()).wrap(config)
+}
 module.exports = config
