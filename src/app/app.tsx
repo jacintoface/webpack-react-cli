@@ -1,9 +1,12 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
-import PropTypes from 'prop-types'
-import { renderRoutes } from 'react-router-config'
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import { renderRoutes, RouteConfig } from 'react-router-config';
 
-export default class App extends React.Component {
+interface IProps {
+  routes: RouteConfig[] | undefined
+}
+
+export default class App extends React.Component<IProps> {
   render () {
     return (
       <>
@@ -12,10 +15,6 @@ export default class App extends React.Component {
         <NavLink to='/rank'>排行</NavLink>
         <NavLink to='/profile'>我的12355</NavLink>
         {renderRoutes(this.props.routes)}
-      </>)
+      </>);
   }
-}
-
-App.propTypes = {
-  routes: PropTypes.array
 }

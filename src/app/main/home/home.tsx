@@ -1,10 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
 import { add } from '../../actions/index'
 import style from './style/home.scss'
 
-class Home extends React.Component {
+class Home extends React.Component<any, any> {
   handleClick = () => {
     this.props.add(2)
   }
@@ -23,11 +22,6 @@ class Home extends React.Component {
       </div>
     )
   }
-}
-
-Home.propTypes = {
-  count: PropTypes.number.isRequired,
-  add: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => {

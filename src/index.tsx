@@ -19,7 +19,7 @@ const render = (App) => {
 render(App)
 
 if (module.hot) {
-  module.hot.accept('./app/app.js', function () {
+  module.hot.accept('./app/app.tsx', function () {
     const nextApp = require('./app/app').default
     render(nextApp)
   })

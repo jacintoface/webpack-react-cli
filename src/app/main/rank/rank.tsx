@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 export default class Rank extends React.Component {
-	render () {
-		return (
-			<div>Rank</div>
-		)
-	}
+  render () {
+    return (
+      <div>Rank</div>
+    );
+  }
 }

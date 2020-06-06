@@ -1,15 +1,15 @@
-import { createAction } from 'redux-actions'
+import { createAction } from 'redux-actions';
 
-export const ADD = createAction('ADD')
+export const ADD = createAction('ADD');
 export function add (count) {
   return (dispatch, getState) => {
-    dispatch(ADD(count))
-  }
+    dispatch(ADD(count));
+  };
 }
 
-export const REMOVE = createAction('REMOVE')
+export const REMOVE = createAction('REMOVE');
 export function remove (count) {
   return (dispatch, getState) => {
-    dispatch(REMOVE(count))
-  }
+    dispatch(REMOVE(count));
+  };
 }

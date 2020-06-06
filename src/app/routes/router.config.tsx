@@ -6,8 +6,13 @@ import Home from '../main/home/home'
 import Rank from '../main/rank/rank'
 import Profile from '../main/profile/profile'
 import Search from '../main/search/search'
+import { RouteConfig } from 'react-router-config'
 
-export default {
+type RouterType = {
+  routes: RouteConfig[]
+}
+
+const routes: RouterType = {
   routes: [{
     path: '/',
     render: () => <Redirect to='/home' />,
@@ -26,3 +31,5 @@ export default {
     component: Search
   }]
 }
+
+export default routes

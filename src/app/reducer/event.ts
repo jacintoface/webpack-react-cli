@@ -1,10 +1,14 @@
 import { handleActions } from 'redux-actions'
 
-const state = {
+type stateType = {
+  count: number
+}
+
+const state: stateType = {
   count: 0
 }
 
-export default handleActions({
+export default handleActions<stateType, number>({
   ADD (state, actions) {
     const oldCount = state.count
     const newCount = actions.payload + oldCount

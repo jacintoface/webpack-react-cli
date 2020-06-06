@@ -21,5 +21,8 @@
         "react"
     ],
     "rules": {
+      "react/jsx-handler-names": "off",
+      "semi": [1, "always"],
+      "no-var": 2
     }
 }

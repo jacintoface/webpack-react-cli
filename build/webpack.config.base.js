@@ -8,7 +8,7 @@ const WebpackBuildNotifier = require('webpack-build-notifier')
 
 const config = {
   entry: {
-    app: resolve('index.js')
+    app: resolve('index.tsx')
   },
   output: {
     filename: '[name].[hash:6].js',

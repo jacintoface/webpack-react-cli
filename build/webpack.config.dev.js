@@ -33,7 +33,7 @@ let config = webpackMerge(baseWebpackConfig, {
   },
   module: {
     rules: [{
-      test: /\.(js|jsx)$/,
+      test: /\.(jsx?|tsx?)$/,
       use: ['babel-loader'],
       exclude: /node_modules/,
       include: path.join(__dirname, '../src')
@@ -69,7 +69,7 @@ let config = webpackMerge(baseWebpackConfig, {
     new webpack.HotModuleReplacementPlugin(),
   ],
   resolve: {
-    extensions: ['.js', '.jsx', '.css', '.scss'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.css', '.scss'],
     alias: {
       '@component': resolve('app', 'components'),
       '@action': resolve('app', 'actions')
