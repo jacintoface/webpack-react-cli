@@ -12,6 +12,10 @@
       "corejs": 3
     }],
     "@babel/plugin-proposal-optional-chaining",
-    "@babel/plugin-proposal-class-properties"
+    "@babel/plugin-proposal-class-properties",
+    ["babel-plugin-import", {
+      "libraryName": "antd",
+      "style": true
+    }]
   ]
 }

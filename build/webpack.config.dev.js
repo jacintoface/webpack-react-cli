@@ -6,7 +6,7 @@ const webpackMerge = require('webpack-merge')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const resolve = require('./utils').resolve
+const { cssLoaders, resolve } = require('./utils')
 const baseWebpackConfig = require('./webpack.config.base')
 const filePath = require('./webpack.config.file')
 
@@ -39,22 +39,19 @@ let config = webpackMerge(baseWebpackConfig, {
       include: path.join(__dirname, '../src')
     }, {
       test: /\.(css|scss)$/,
-      use: [{
-        loader: MiniCssExtractPlugin.loader,
-        options: {
-          hmr: process.env.NODE_ENV === 'development',
-          reloadAll: true,
-          ignoreOrder: true
-        }
-      }, {
-        loader: 'css-loader',
-        options: {
-          modules: true,
-          importLoaders: 1
-        }
-      }, {
+      use: cssLoaders({
         loader: 'sass-loader'
-      }]
+      })
+    }, {
+      test: /\.less$/,
+      use: cssLoaders({
+        loader: 'less-loader',
+        options: {
+          lessOptions: {
+            javascriptEnabled: true
+          }
+        }
+      })
     }]
   },
   devtool: 'inline-cheap-module-source-map',
