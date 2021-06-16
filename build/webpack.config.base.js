@@ -2,7 +2,6 @@ const path = require('path')
 const filePath = require('./webpack.config.file')
 const resolve = require('./utils').resolve
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
 const ProgressBarWebpackPlugin = require('progress-bar-webpack-plugin')
 const WebpackBuildNotifier = require('webpack-build-notifier')
 
@@ -45,12 +44,12 @@ const config = {
     }]
   },
   plugins: [
-    new CopyWebpackPlugin([
-      {
-        from: filePath.assetsPath, to: path.join(filePath.output, 'static')
-      }]
-    ),
-    new HardSourceWebpackPlugin(),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: filePath.assetsPath, to: path.join(filePath.output, 'static')
+        }]
+    }),
     new ProgressBarWebpackPlugin(),
     new WebpackBuildNotifier()
   ]

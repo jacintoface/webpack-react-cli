@@ -2,7 +2,7 @@ const path = require('path')
 const opn = require('opn')
 const webpack = require('webpack')
 const yargs = require('yargs')
-const webpackMerge = require('webpack-merge')
+const { merge } = require('webpack-merge')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -11,26 +11,9 @@ const baseWebpackConfig = require('./webpack.config.base')
 const filePath = require('./webpack.config.file')
 
 const { performance } = yargs.argv
-let config = webpackMerge(baseWebpackConfig, {
+let config = merge(baseWebpackConfig, {
   mode: 'development',
-  devServer: {
-    port: 8081,
-    host: '0.0.0.0',
-    inline: true,
-    disableHostCheck: true,
-    hot: true,
-    overlay: {
-      errors: true,
-      warnings: false
-    },
-    after () {
-      opn('http://localhost:8081')
-    },
-    open: false,
-    contentBase: filePath.output,
-    historyApiFallback: true,
-    publicPath: filePath.publicPath
-  },
+  entry: [resolve('index.tsx'), "webpack-hot-middleware/client"],
   module: {
     rules: [{
       test: /\.(jsx?|tsx?)$/,
